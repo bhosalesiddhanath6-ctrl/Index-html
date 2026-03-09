@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greeting Page</title>
+
+<style>
+body{
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg,#ff7eb3,#65d6ce);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:0;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+text-align:center;
+width:300px;
+}
+
+input{
+width:90%;
+padding:10px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+background:#25D366;
+border:none;
+padding:10px 20px;
+color:white;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+video{
+margin-top:10px;
+border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div id="page1">
+<h2>तुमचे नाव टाका</h2>
+<input type="text" id="name" placeholder="Name">
+<br>
+<button onclick="nextPage()">Next</button>
+</div>
+
+<div id="page2" style="display:none">
+<h2>तुमचे वय टाका</h2>
+<input type="number" id="age" placeholder="Age">
+<br>
+<button onclick="showGreeting()">Submit</button>
+</div>
+
+<div id="page3" style="display:none">
+<h2>नमस्ते! तुम्हाला खूप-खूप शुभेच्छा 🎉</h2>
+<p id="info"></p>
+
+<button onclick="startCamera()">Camera Permission</button>
+
+<br>
+
+<video id="video" width="250" autoplay></video>
+
+<br>
+
+<button onclick="shareWhatsApp()">WhatsApp Share</button>
+</div>
+
+</div>
+
+<script>
+
+function nextPage(){
+document.getElementById("page1").style.display="none";
+document.getElementById("page2").style.display="block";
+}
+
+function showGreeting(){
+
+let name=document.getElementById("name").value;
+let age=document.getElementById("age").value;
+
+document.getElementById("info").innerHTML=
+"नाव: "+name+" | वय: "+age;
+
+document.getElementById("page2").style.display="none";
+document.getElementById("page3").style.display="block";
+}
+
+function startCamera(){
+
+navigator.mediaDevices.getUserMedia({video:true})
+.then(function(stream){
+
+document.getElementById("video").srcObject=stream;
+
+});
+
+}
+
+function shareWhatsApp(){
+
+let message="नमस्ते! तुम्हाला खूप-खूप शुभेच्छा 🎉";
+
+let phone="919765845949";
+
+let url="https://wa.me/"+phone+"?text="+encodeURIComponent(message);
+
+window.open(url,"_blank");
+
+}
+
+</script>
+
+</body>
+</html>
